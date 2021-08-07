@@ -1,0 +1,14 @@
+.field-container{
+    position: relative;
+}
+
+.field-container *{
+    border-radius: 0px;
+}
+
+.error-message{
+    font-size: .6rem;
+    position: absolute;
+    top: 5px;
+    right: 0;
+}
