@@ -4,9 +4,12 @@ import TextAreaField from "./fields/TextAreaField"
 import SelectField from "./fields/SelectField"
 import CheckboxField from "./fields/CheckboxField";
 import * as Yup from 'yup'
-
+import DateField from "./fields/DateField";
+import { parse as parseDate, isDate } from 'date-fns'
+import moment from 'moment'
 
 export default function ManageProjectModalForm(){
+    ///console.log('moment', moment)
 
     const comuniOptions = [
         {label: 'scegli comune...', value: 'placeholder', valid: false},
@@ -42,12 +45,21 @@ export default function ManageProjectModalForm(){
             .string()
             .oneOf(comuniOptions.filter(c => c.valid).map(c => c.value), 'Campo Obbligatorio')
             .required('Campo Obbligatorio'),
-
         selectArea2: Yup
             .string()
             .oneOf(select2options.filter(c => c.valid).map(c => c.value), 'Campo Obbligatorio')
             .required('Campo Obbligatorio'),
-        email: Yup.string().email('La mail non è valida').required('Campo Obbligatorio')
+        email: Yup.string().email('La mail non è valida').required('Campo Obbligatorio'),
+        dataInizio: Yup
+            .string()
+            .test('min', 'La data è precedente al 05/02/2010', (value, a) => {
+                //let { path, createError } = this
+
+                let [gg, mm, aa] = value.split('/')
+                let momentValue = moment(new Date(aa, mm, gg))
+                let momentMinDate = moment(new Date(2000, 10, 26))
+                return momentValue.diff(momentMinDate, 'days') >= 0
+            })
     })
 
     return (
@@ -59,7 +71,8 @@ export default function ManageProjectModalForm(){
                 comune: 'placeholder',
                 selectArea2: 'placeholder',
                 email: '',
-                attivo: false
+                attivo: false,
+                dataInizio: '01/08/2000'
             }}
             validationSchema={validator}
             onSubmit={values => {
@@ -70,6 +83,7 @@ export default function ManageProjectModalForm(){
                 console.log('You resetted the form')
             }}>
             {formik => {
+                //console.log('formik', formik)
                 return (
                     <div className='p-2'>
                         <Form>
@@ -95,6 +109,15 @@ export default function ManageProjectModalForm(){
                                     name='email'
                                     placeholder='inserisci email...'
                                     type='email'/>
+
+                                <DateField
+                                    label='Email'
+                                    name='dataInizio'
+                                    placeholder='inserisci data...'
+                                    onFormikChange={f => formik.setFieldValue('dataInizio', f)}
+                                    onFormikBlur={formik.handleBlur}
+                                    type='text'
+                                />
                                 <TextAreaField
                                     label='Descrizione'
                                     name='descrizione'

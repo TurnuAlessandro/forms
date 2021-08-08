@@ -7,6 +7,7 @@ import * as Yup from 'yup'
 import React from 'react'
 import Modal from 'react-bootstrap/Modal'
 import './form-styles.css'
+import DateField from "./fields/DateField";
 
 export function ModalProva({ progetto, ...props }) {
     const defaultInitialValues = {
@@ -107,71 +108,88 @@ export function ModalProva({ progetto, ...props }) {
                 }}>
                 {formik => {
                     return (
-                            <FormikForm>
-                                <fieldset className='form-group'>
-                                    <Modal.Header closeButton>
-                                        <Modal.Title id="contained-modal-title-vcenter">
-                                            <legend>{progetto ? "Modifica Progetto" : 'Nuovo Progetto'}</legend>
-                                        </Modal.Title>
-                                    </Modal.Header>
-                                    <Modal.Body>
-                                        <TextField
-                                            label='Nome'
-                                            name='nome'
-                                            placeholder='inserisci nome...'
-                                            type='text'/>
-                                        <TextField
-                                            label='Importo'
-                                            name='importo'
-                                            placeholder='inserisci importo...'
-                                            min='0'
-                                            type='number'/>
+                        <FormikForm>
+                            <fieldset className='form-group'>
+                                <Modal.Header closeButton>
+                                    <Modal.Title id="contained-modal-title-vcenter">
+                                        <legend>{progetto ? "Modifica Progetto" : 'Nuovo Progetto'}</legend>
+                                    </Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <TextField
+                                        label='Nome'
+                                        name='nome'
+                                        placeholder='inserisci nome...'
+                                        type='text'/>
+                                    <TextField
+                                        label='Importo'
+                                        name='importo'
+                                        placeholder='inserisci importo...'
+                                        min='0'
+                                        type='number'/>
 
-                                        <div className='d-flex justify-content-between align-content-stretch'>
+                                    <div className='container'>
+                                        <div className='row'>
                                             <SelectField
                                                 label='Comune'
                                                 name='idComune'
                                                 options={comuniOptions}
+                                                className='col-12 col-md-6 m-0 p-0 paddingr-md-5'
                                                 placeholder={true}/>
                                             <SelectField
                                                 label='Area'
                                                 name='area'
                                                 options={areeOptions}
+                                                className='col-12 col-md-6 p-0 pl-1 m-0 p-0 paddingl-md-5'
                                                 placeholder={true}/>
                                         </div>
+                                    </div>
 
-                                        <div className='d-flex justify-content-between'>
-                                            <TextField
-                                                label='Data di inizio (gg/mm/aaa)'
+
+                                    <div className='container'>
+                                        <div className='row'>
+                                            <DateField
+                                                label='Data Inizio'
                                                 name='dataInizio'
-                                                type='date'/>
-                                            <TextField
-                                                label='Data di fine (gg/mm/aaa)'
+                                                placeholder='inserisci data...'
+                                                onFormikChange={f => formik.setFieldValue('dataInizio', f)}
+                                                onFormikBlur={formik.handleBlur}
+                                                type='text'
+                                                className='col-12 col-md-6 m-0 p-0 paddingr-md-5'
+                                            />
+                                            <DateField
+                                                label='Data Fine'
                                                 name='dataFine'
-                                                type='date'/>
+                                                placeholder='inserisci data...'
+                                                onFormikChange={f => formik.setFieldValue('dataFine', f)}
+                                                onFormikBlur={formik.handleBlur}
+                                                type='text'
+                                                className='col-12 col-md-6 p-0 pl-1 m-0 p-0 paddingl-md-5'
+                                            />
                                         </div>
+                                    </div>
 
-                                        <TextAreaField
-                                            label='Descrizione'
-                                            name='descrizione'
-                                            placeholder='inserisci descrizione...'
-                                            type='text'/>
-                                        <CheckboxField
-                                            label='Attivo'
-                                            name='attivo'/>
-                                    </Modal.Body>
-                                    <Modal.Footer>
-                                        <button
-                                            className='btn btn-outline-danger mx-1'
-                                            style={{borderRadius: 0}}
-                                            type='reset'>Reset</button>
-                                        <button
-                                            className='btn btn-success mx-1'
-                                            style={{borderRadius: 0}}
-                                            type='submit'>{progetto ? 'Modifica' : 'Invia'}</button>
-                                    </Modal.Footer>
-                                </fieldset>
-                            </FormikForm>
+                                    <TextAreaField
+                                        label='Descrizione'
+                                        name='descrizione'
+                                        placeholder='inserisci descrizione...'
+                                        type='text'/>
+                                    <CheckboxField
+                                        label='Attivo'
+                                        name='attivo'/>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <button
+                                        className='btn btn-outline-danger mx-1'
+                                        style={{borderRadius: 0}}
+                                        type='reset'>Reset</button>
+                                    <button
+                                        className='btn btn-success mx-1'
+                                        style={{borderRadius: 0}}
+                                        type='submit'>{progetto ? 'Modifica' : 'Invia'}</button>
+                                </Modal.Footer>
+                            </fieldset>
+                        </FormikForm>
                     )
                 }}
             </Formik>

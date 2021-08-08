@@ -1,8 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-import ManageProjectModalForm from "./components/Form";
+import ManageProjectModalForm from "./components/Form"
 import React from 'react'
 import Modal from 'react-modal'
-import { ModalProva } from "./components/ModalProva";
+import { ModalProva } from "./components/ModalProva"
+import DateField from "./components/fields/DateField"
 
 function App() {
     const [isManageProjectModalFormOpen, setIsManageProjectModalFormOpen] = React.useState(false)
@@ -32,6 +33,9 @@ function App() {
                         }}
                            show={isManageProjectModalFormOpen}
                            />
+
+
+
         </div>
     )
 }
