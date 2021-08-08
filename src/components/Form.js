@@ -6,7 +6,7 @@ import CheckboxField from "./fields/CheckboxField";
 import * as Yup from 'yup'
 
 
-export default function CustomForm(){
+export default function ManageProjectModalForm(){
 
     const comuniOptions = [
         {label: 'scegli comune...', value: 'placeholder', valid: false},
@@ -72,60 +72,53 @@ export default function CustomForm(){
             {formik => {
                 return (
                     <div className='p-2'>
-                        <h1
-                            className='my-4 font-weight-bold-display-4'>
-                            Sign Up
-                        </h1>
                         <Form>
-                            <TextField
-                                label='Titolo'
-                                name='titolo'
-                                placeholder='inserisci titolo...'
-                                type='text'/>
+                            <fieldset className='form-group'>
+                                <legend className='text-center'>Nuovo Progetto</legend>
+                                <TextField
+                                    label='Titolo'
+                                    name='titolo'
+                                    placeholder='inserisci titolo...'
+                                    type='text'/>
+                                <SelectField
+                                    label='Comune'
+                                    name='comune'
+                                    options={comuniOptions}
+                                    placeholder={true}/>
+                                <SelectField
+                                    label='Select2'
+                                    name='selectArea2'
+                                    options={select2options}
+                                    placeholder={true}/>
+                                <TextField
+                                    label='Email'
+                                    name='email'
+                                    placeholder='inserisci email...'
+                                    type='email'/>
+                                <TextAreaField
+                                    label='Descrizione'
+                                    name='descrizione'
+                                    placeholder='inserisci descrizione...'
+                                    type='text'/>
+                                <CheckboxField
+                                    label='Attivo'
+                                    name='attivo'/>
+                                <div
+                                    className='btn-container my-2 d-flex justify-content-end '>
 
-                            <SelectField
-                                label='Comune'
-                                name='comune'
-                                options={comuniOptions}
-                                placeholder={true}/>
+                                    <button
+                                        className='btn btn-outline-danger mx-1'
+                                        style={{borderRadius: 0}}
+                                        type='reset'>Reset</button>
+                                    <button
+                                        className='btn btn-success mx-1'
+                                        style={{borderRadius: 0}}
+                                        type='submit'>Submit</button>
+
+                                </div>
+                            </fieldset>
 
 
-                            <SelectField
-                                label='Select2'
-                                name='selectArea2'
-                                options={select2options}
-                                placeholder={true}/>
-
-                            <TextField
-                                label='Email'
-                                name='email'
-                                placeholder='inserisci email...'
-                                type='email'/>
-
-
-                            <TextAreaField
-                                label='Descrizione'
-                                name='descrizione'
-                                placeholder='inserisci descrizione...'
-                                type='text'/>
-
-                            <CheckboxField
-                                label='Attivo'
-                                name='attivo'/>
-
-                            <div
-                                className='btn-container my-2 d-flex justify-content-end '>
-
-                                <button
-                                    className='btn btn-outline-danger mx-1'
-                                    style={{borderRadius: 0}}
-                                    type='reset'>Reset</button>
-                                <button
-                                    className='btn btn-success mx-1'
-                                    style={{borderRadius: 0}}
-                                    type='submit'>Submit</button>
-
-                            </div>
                         </Form>
                     </div>
                 )

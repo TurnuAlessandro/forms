@@ -1,6 +1,5 @@
 import { useField, ErrorMessage } from "formik"
 import { v4 as uuidv } from 'uuid'
-import './field.css'
 
 export default function TextAreaField({ label, ...props }){
     const [field, meta] = useField(props)

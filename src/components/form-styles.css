@@ -1,9 +1,22 @@
+.modal-content{
+    border-radius: 0px !important;
+}
+
+legend{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
 .field-container{
     position: relative;
 }
 
 .field-container *{
     border-radius: 0px;
+}
+
+input[type='checkbox']{
+    transform: scale(1.2) !important;
 }
 
 .error-message{

@@ -1,6 +1,5 @@
 import { useField } from "formik"
 import { v4 as uuidv } from 'uuid'
-import './field.css'
 
 export default function CheckboxField({ label, ...props }){
     const [field] = useField(props)
