@@ -9,7 +9,27 @@ import Modal from 'react-bootstrap/Modal'
 import './form-styles.css'
 
 export function ModalProva({ progetto, ...props }) {
-    
+    const defaultInitialValues = {
+        nome: '',
+        descrizione: '',
+        importo: 0,
+        dataInizio: '01/02/2003',
+        dataFine: '01/02/2013',
+        attivo: false,
+        idComune: 'placeholder',
+        idArea: 'placeholder'
+    }
+    progetto = {
+        id: 1,
+        nome: 'Progetto Prova',
+        descrizione: 'Descrizione Prova',
+        importo: 30000,
+        dataInizio: '01/02/2003',
+        dataFine: '01/02/2013',
+        attivo: true,
+        idComune: 'idSerramanna',
+        idArea: '8'
+    }
 
 
     /*
@@ -34,14 +54,14 @@ export function ModalProva({ progetto, ...props }) {
         {label: 'Quartu', value: 'idQuartu', valid: true},
     ]
 
-    const select2options = [
+    const areeOptions = [
         {label: 'scegli valore...', value: 'placeholder', valid: false},
-        {label: 'Uno', value: '1', valid: true},
-        {label: 'Due', value: '2', valid: true},
+        {label: 'Area1', value: '1', valid: true},
+        {label: 'Area2', value: '2', valid: true},
         {label: 'Tre', value: '3', valid: true},
-        {label: 'Quattro', value: '4', valid: true},
-        {label: 'Cinque', value: '5', valid: true},
-        {label: 'Sei', value: '6', valid: true},
+        {label: 'Etc', value: '4', valid: true},
+        {label: 'areaCinque', value: '5', valid: true},
+        {label: 'areaSei', value: '6', valid: true},
         {label: 'Sette', value: '7', valid: true},
         {label: 'Otto', value: '8', valid: true},
         {label: 'Nove', value: '9', valid: true},
@@ -62,7 +82,7 @@ export function ModalProva({ progetto, ...props }) {
 
         selectArea2: Yup
             .string()
-            .oneOf(select2options.filter(c => c.valid).map(c => c.value), 'Campo Obbligatorio')
+            .oneOf(areeOptions.filter(c => c.valid).map(c => c.value), 'Campo Obbligatorio')
             .required('Campo Obbligatorio'),
         email: Yup.string().email('La mail non è valida').required('Campo Obbligatorio')
     })
@@ -76,14 +96,7 @@ export function ModalProva({ progetto, ...props }) {
         >
             <Formik
                 enableReinitialize={true}
-                initialValues={{
-                    titolo: '',
-                    descrizione: '',
-                    comune: 'placeholder',
-                    selectArea2: 'placeholder',
-                    email: '',
-                    attivo: false
-                }}
+                initialValues={progetto ? progetto : defaultInitialValues}
                 validationSchema={validator}
                 onSubmit={values => {
                     console.log('You submitted the form')
@@ -103,25 +116,41 @@ export function ModalProva({ progetto, ...props }) {
                                     </Modal.Header>
                                     <Modal.Body>
                                         <TextField
-                                            label='Titolo'
-                                            name='titolo'
-                                            placeholder='inserisci titolo...'
+                                            label='Nome'
+                                            name='nome'
+                                            placeholder='inserisci nome...'
                                             type='text'/>
-                                        <SelectField
-                                            label='Comune'
-                                            name='comune'
-                                            options={comuniOptions}
-                                            placeholder={true}/>
-                                        <SelectField
-                                            label='Select2'
-                                            name='selectArea2'
-                                            options={select2options}
-                                            placeholder={true}/>
                                         <TextField
-                                            label='Email'
-                                            name='email'
-                                            placeholder='inserisci email...'
-                                            type='email'/>
+                                            label='Importo'
+                                            name='importo'
+                                            placeholder='inserisci importo...'
+                                            min='0'
+                                            type='number'/>
+
+                                        <div className='d-flex justify-content-between align-content-stretch'>
+                                            <SelectField
+                                                label='Comune'
+                                                name='idComune'
+                                                options={comuniOptions}
+                                                placeholder={true}/>
+                                            <SelectField
+                                                label='Area'
+                                                name='area'
+                                                options={areeOptions}
+                                                placeholder={true}/>
+                                        </div>
+
+                                        <div className='d-flex justify-content-between'>
+                                            <TextField
+                                                label='Data di inizio (gg/mm/aaa)'
+                                                name='dataInizio'
+                                                type='date'/>
+                                            <TextField
+                                                label='Data di fine (gg/mm/aaa)'
+                                                name='dataFine'
+                                                type='date'/>
+                                        </div>
+
                                         <TextAreaField
                                             label='Descrizione'
                                             name='descrizione'
